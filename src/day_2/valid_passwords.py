@@ -16,7 +16,7 @@ def is_valid_passwords_in_range(range_min, range_max, symbol, text):
 
 def is_valid_passwords_in_postion(pos_1, pos_2, symbol, text):
     char_1, char_2 = (text[i - 1] for i in [pos_1, pos_2])
-    if any(symbol == elem for elem in [char_1, char_2]) and char_1 != char_2:
+    if char_1 != char_2 and any(symbol == char for char in [char_1, char_2]):
         return True
     return False
 
