@@ -23,7 +23,7 @@ def is_valid_passwords_in_postion(pos_1, pos_2, symbol, text):
 
 
 def get_valid_passvords(
-    pwsd_list: List[int], count: Callable[..., Optional[int]]
+    pwsd_list: List[int], is_valid: Callable[..., Optional[int]]
 ) -> Optional[int]:
     valid_pswd_count = 0
     for pswd in pwsd_list:
@@ -31,7 +31,7 @@ def get_valid_passvords(
         range_min, range_max = (int(num) for num in re.split(r"\-", next(data)))
         symbol = next(data).split(":")[0]
         text = next(data).strip()
-        if count(range_min, range_max, symbol, text):
+        if is_valid(range_min, range_max, symbol, text):
             valid_pswd_count += 1
     return valid_pswd_count if valid_pswd_count else None
 
