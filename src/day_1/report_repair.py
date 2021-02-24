@@ -38,6 +38,6 @@ def sum_to_2020_part_2(expence_report: List[int]) -> Optional[List[int]]:
 
 
 if __name__ == "__main__":
-    expence_report = process_input(os.path.join("day_1", "input_reports.in"))
+    expence_report = process_input(os.path.join("day_1", "input.in"))
     sum_to_2020_part_1(expence_report)
     sum_to_2020_part_2(expence_report)
