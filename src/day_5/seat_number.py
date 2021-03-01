@@ -1,7 +1,8 @@
-from typing import List
+from typing import List, Optional
 import os
 from functools import reduce
 import math
+import itertools
 
 
 def process_input(file_name):
@@ -32,14 +33,32 @@ def decode_seat_number(single_seat: str) -> int:
     return row_range[0] | row_range[1], col_range[0] | col_range[1]
 
 
-def get_max_seat_id(encoded_seats: List[str]) -> int:
+def get_seat_ids(encoded_seats: List[str]) -> int:
     seat_ids = []
     for seat in encoded_seats:
         row, col = decode_seat_number(seat)
         seat_ids.append(compute_seat_id(row, col))
-    return max(seat_ids)
+    return seat_ids
+
+
+def get_target_seat_id(encoded_seats: List[str]) -> Optional[int]:
+    excluded_seats = [
+        "FFFFFFF" + "".join(x) for x in itertools.product(["L", "R"], repeat=3)
+    ]
+    excluded_seats.extend(
+        ["BBBBBBB" + "".join(x) for x in itertools.product(["L", "R"], repeat=3)]
+    )
+    excluded_seat_ids = set(get_seat_ids(excluded_seats))
+    seat_ids = sorted(get_seat_ids(encoded_seats))
+    candidate_ids = set([x + 1 for x, y in zip(seat_ids, seat_ids[1:]) if y - x == 2])
+    target_elem = candidate_ids - excluded_seat_ids
+    if target_elem:
+        return target_elem.pop()
+    return None
 
 
 if __name__ == "__main__":
     seats_encoded = process_input(os.path.join("src", "day_5", "input.in"))
-    print(get_max_seat_id(seats_encoded))
+    max_seat_id = max(get_seat_ids(seats_encoded))
+    print(max_seat_id)
+    print(get_target_seat_id(seats_encoded))
