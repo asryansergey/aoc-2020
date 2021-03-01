@@ -1,21 +1,14 @@
 from typing import List, Optional, Callable, Tuple
 import os
-import json
 
 
 def process_input(file_name):
     result = []
     with open(file_name) as report:
-        single_passport = {}
-        passports = [line.strip("\n") for line in report.readlines()]
-        for i, line in enumerate(passports):
-            if line != "":
-                for elem in line.split(" "):
-                    pair = elem.split(":")
-                    single_passport[pair[0]] = pair[1]
-            if line == "" or i == len(passports) - 1:
-                result.append(single_passport.copy())
-                single_passport.clear()
+        passports = [line.replace("\n", " ") for line in report.read().split("\n\n")]
+        for line in passports:
+            single_passport = dict(info.split(":") for info in line.split(" "))
+            result.append(single_passport)
     return result
 
 
