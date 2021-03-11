@@ -1,8 +1,5 @@
-from typing import List, Dict, Tuple, NoReturn
-import os, re
-from functools import reduce
-import math
-import itertools
+from typing import List, Tuple, NoReturn
+import os
 
 VALID_INSTRUCTIONS = {
     "acc": lambda x, y: (x + y, 1),
