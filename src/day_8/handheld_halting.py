@@ -40,10 +40,11 @@ def find_accumulator_part_1(instructions: List) -> int:
     return accumulator, True
 
 
-def swap_nop_and_jmp(instructions: List, instr_to_replace: Tuple, pos: int) -> NoReturn:
+def swap_nop_and_jmp(instructions: List, instr_to_replace: Tuple) -> NoReturn:
     cmd = "nop" if instr_to_replace[0] == "jmp" else "jmp"
     new_instr = (cmd, instr_to_replace[1], instr_to_replace[2])
     instructions.remove(instr_to_replace)
+    pos = instr_to_replace[2]
     instructions.insert(pos, new_instr)
 
 
@@ -75,15 +76,15 @@ def find_accumulator_without_loop(instruction: List) -> int:
     for i in range(len(instructions)):
         elem = instructions[i]
         if elem[0] == "jmp" and elem[1] < 0:
-            swap_nop_and_jmp(instructions, elem, elem[2])
+            swap_nop_and_jmp(instructions, elem)
             res, status = find_accumulator_part_2(instructions)
             elem = instructions[i]
-            swap_nop_and_jmp(instructions, elem, elem[2])
+            swap_nop_and_jmp(instructions, elem)
         if elem[0] == "nop" and elem[1] > 0:
-            swap_nop_and_jmp(instructions, elem, elem[2])
+            swap_nop_and_jmp(instructions, elem)
             res, status = find_accumulator_part_2(instructions)
             elem = instructions[i]
-            swap_nop_and_jmp(instructions, elem, elem[2])
+            swap_nop_and_jmp(instructions, elem)
         if status:
             print(f"Accumulator value: {res}")
             break
