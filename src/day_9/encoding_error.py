@@ -1,5 +1,6 @@
-from typing import List, Optional
+from typing import List, Optional, Callable
 import os
+from functools import wraps
 
 PREAMBLE_RANGE = 25
 
@@ -12,7 +13,7 @@ def process_input(file_name):
 def can_sum(preamble: List[int], target_num: int):
     if target_num < 0:
         return False
-    if target_num == 0:
+    if not target_num:
         return True
     for idx, num in enumerate(preamble, 1):
         next_num = target_num - num
@@ -26,7 +27,7 @@ def find_target_number(number_list: List) -> Optional[int]:
         preamble = number_list[idx : idx + PREAMBLE_RANGE]
         target_num = number_list[idx + PREAMBLE_RANGE]
         if not can_sum(preamble, target_num):
-            return preamble, target_num
+            return target_num
     return None
 
 
