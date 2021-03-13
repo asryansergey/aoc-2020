@@ -30,25 +30,22 @@ def find_target_number(number_list: List[int]) -> Optional[int]:
     return None
 
 
-def find_xmas_weakness(number_list: List[int], target_number: int) -> int:
+def find_xmas_weakness(number_list: List[int], target_number: int) -> Optional[int]:
     target_index = number_list.index(target_number)
     start_pos = 0
-    while start_pos < target_index:
-        contiguous_list = [number_list[start_pos]]
+    for start_pos, init_elem in enumerate(number_list[:target_index]):
+        total_sum = 0
+        contiguous_list = [init_elem]
         for idx in range(start_pos + 1, len(number_list[:target_index])):
             num = number_list[idx]
-            contiguous_list.append(num)
-            total_sum = sum(contiguous_list)
-            if num >= target_number:
-                contiguous_list.clear()
-                continue
-            if total_sum > target_number:
+            total_sum += num
+            if total_sum < target_number:
+                contiguous_list.append(num)
+            elif total_sum > target_number:
                 contiguous_list = [contiguous_list[-1]]
-                continue
-            if total_sum == target_number:
+            else:
                 contiguous_list.sort()
                 return contiguous_list[0] + contiguous_list[-1]
-        start_pos += 1
     return None
 
 
