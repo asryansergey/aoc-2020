@@ -14,15 +14,12 @@ def find_target_number(jolts_list: List[int]) -> Optional[int]:
     jolts_list.sort()
     built_in_joltage = jolts_list[-1]
     jolts_diff_result[3] += [built_in_joltage]
-    used_jolts = []
     for diff, _ in enumerate(jolts_diff_result.items(), 1):
-        for idx, elem in enumerate(jolts_list):
-            jolts_diff_result[diff] += [
-                jolt
-                for jolt in jolts_list[idx + 1 :]
-                if jolt - elem == diff and not jolt in used_jolts
-            ]
-        used_jolts.extend(jolts_diff_result[diff])
+        for idx, elem in enumerate(jolts_list, 1):
+            if idx >= len(jolts_list):
+                break
+            if jolts_list[idx] - elem == diff:
+                jolts_diff_result[diff].append(jolts_list[idx])
 
     return len(jolts_diff_result[1]) * len(jolts_diff_result[3])
 
