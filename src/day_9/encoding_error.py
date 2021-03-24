@@ -53,4 +53,4 @@ if __name__ == "__main__":
     number_list = process_input(os.path.join("src", "day_9", "input.in"))
     target_number = find_target_number(number_list)
     print(target_number)
-    print(find_xmas_weakness(number_list, target_number))
+    print(find_xmas_weakness(number_list, target_number))  # type: ignore

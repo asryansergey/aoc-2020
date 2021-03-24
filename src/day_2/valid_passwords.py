@@ -22,7 +22,7 @@ def is_valid_passwords_in_postion(pos_1, pos_2, symbol, text):
 
 
 def get_valid_passvords(
-    pwsd_list: List[int], is_valid: Callable[..., Optional[int]]
+    pwsd_list: List[str], is_valid: Callable[..., Optional[int]]
 ) -> Optional[int]:
     valid_pswd_count = 0
     for pswd in pwsd_list:

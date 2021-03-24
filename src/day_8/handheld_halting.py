@@ -17,7 +17,7 @@ def process_input(file_name):
         return result
 
 
-def find_accumulator_part_1(instructions: List) -> int:
+def find_accumulator_part_1(instructions: List) -> Tuple[int, bool]:
     accumulator = 0
     visited_instructions = set()
     instr_ptr = 0
@@ -37,7 +37,7 @@ def find_accumulator_part_1(instructions: List) -> int:
     return accumulator, True
 
 
-def swap_nop_and_jmp(instructions: List, instr_to_replace: Tuple) -> NoReturn:
+def swap_nop_and_jmp(instructions: List, instr_to_replace: Tuple):
     cmd = "nop" if instr_to_replace[0] == "jmp" else "jmp"
     new_instr = (cmd, instr_to_replace[1], instr_to_replace[2])
     instructions.remove(instr_to_replace)
@@ -45,7 +45,7 @@ def swap_nop_and_jmp(instructions: List, instr_to_replace: Tuple) -> NoReturn:
     instructions.insert(pos, new_instr)
 
 
-def find_accumulator_without_loop(instruction: List) -> int:
+def find_accumulator_without_loop(instruction: List):
     status = False
     for i in range(len(instructions)):
         elem = instructions[i]

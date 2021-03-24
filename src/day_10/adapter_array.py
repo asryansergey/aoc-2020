@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Dict, Optional
 import os
 
 MAX_JOLTAGE_DIFF = 3
@@ -10,7 +10,7 @@ def process_input(file_name):
 
 
 def find_target_number(jolts_list: List[int]) -> Optional[int]:
-    jolts_diff_result = {k: [] for k in range(1, MAX_JOLTAGE_DIFF + 1)}
+    jolts_diff_result = {k: [] for k in range(1, MAX_JOLTAGE_DIFF + 1)}  # type: ignore
     jolts_list.sort()
     built_in_joltage = jolts_list[-1]
     jolts_diff_result[3] += [built_in_joltage]
