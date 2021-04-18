@@ -37,7 +37,29 @@ def sum_to_2020_part_2(expence_report: List[int]) -> Optional[List[int]]:
     return None
 
 
+def sum_to_2020_part_2_opt(expence_report: List[int]) -> Optional[List[int]]:
+    expence_report.sort()
+
+    hashmap = {}
+    for i, elem in enumerate(expence_report):
+        hashmap[elem] = i
+
+    for i in range(len(expence_report)):
+        for j in range(i + 1, len(expence_report)):
+            if expence_report[i] + expence_report[j] > 2020:
+                break
+            search_elem = 2020 - (expence_report[i] + expence_report[j])
+            if search_elem in hashmap and hashmap[search_elem] > j:
+                print(
+                    "Found the correct values: x * y * z = ",
+                    expence_report[i] * expence_report[j] * search_elem,
+                )
+                return [expence_report[i], expence_report[j], search_elem]
+    return None
+
+
 if __name__ == "__main__":
     expence_report = process_input(os.path.join("src", "day_1", "input.in"))
     sum_to_2020_part_1(expence_report)
     sum_to_2020_part_2(expence_report)
+    sum_to_2020_part_2_opt(expence_report)
